@@ -8,6 +8,7 @@
 #include "../EJCocoa/NSCache.h"
 
 #define EJ_FONT_TEXTURE_SIZE 1024
+#define EJ_FONT_ANDROID_SANS_SERIF "/system/fonts/DroidSans.ttf"
 
 class EJCanvasContext;
 

@@ -17,7 +17,17 @@ EJFont::EJFont(NSString* font, NSInteger size, BOOL usefill, float contentScale)
 
 	fontName = font ;	
 	fill = usefill;
+
+#ifdef _WINDOWS
 	NSString * fullPath = EJApp::instance()->pathForResource(fontName);
+#else
+	NSString *fullPath;
+	if (fontName->isEqual(NSStringMake(string("sans-serif")))) {
+		fullPath = NSStringMake(string(EJ_FONT_ANDROID_SANS_SERIF));
+	} else {
+		NSString * fullPath = EJApp::instance()->pathForResource(fontName);
+	}
+#endif
 	NSLOG("EJFont path :   %s",fullPath->getCString());
 	width = 0;
 	height = PT_TO_PX(font_size);
