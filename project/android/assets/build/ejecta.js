@@ -57,7 +57,7 @@ self = window = this;
  window.setInterval = function(cb, t){ return ej.setInterval(cb, t); };
  window.clearTimeout = function(id){ return ej.clearTimeout(id); };
  window.clearInterval = function(id){ return ej.clearInterval(id); };
- window.requestAnimationFrame = function(cb, element){ return ej.setTimeout(cb, 16); };
+ window.requestAnimationFrame = function(cb) { return ej.requestAnimationFrame(cb); };
  
  
  // The native Image, Audio, HttpRequest and LocalStorage class mimic the real elements

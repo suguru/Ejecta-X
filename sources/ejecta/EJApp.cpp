@@ -78,6 +78,7 @@ EJApp::EJApp() : currentRenderingContext(0), screenRenderingContext(0), touchDel
 	internalScaling = 1.0f;
 	
 	mainBundle = 0;
+	jsAnimationFrameCallback = NULL;
 
 	timers = new EJTimerCollection();
 	lockTouches = false;
@@ -130,6 +131,7 @@ EJApp::~EJApp()
 	timers->release();
 	if(mainBundle)
 		free(mainBundle);
+	jsAnimationFrameCallback = NULL;
 	NSPoolManager::sharedPoolManager()->pop();
 	NSPoolManager::purgePoolManager();
 }
@@ -139,6 +141,8 @@ void EJApp::init(const char* path, int w, int h)
 
 	if(mainBundle)
 		free(mainBundle);
+
+	jsAnimationFrameCallback = NULL;
 
     int len = (strlen(path) + 1);
     mainBundle = (char *)malloc(len * sizeof(char));
@@ -192,6 +196,11 @@ void EJApp::run(void)
 	// Check all timers
 	timers->update();
 	
+	// Call frame callback
+	if (jsAnimationFrameCallback != NULL) {
+		invokeCallback(jsAnimationFrameCallback, NULL, 0, NULL);
+	}
+
 	if (screenRenderingContext)
 	{
 	// Redraw the canvas
@@ -457,6 +466,19 @@ JSValueRef EJApp::deleteTimer(JSContextRef ctxp, size_t argc, const JSValueRef a
 	return NULL;
 }
 
+// ---------------------------------------------------------------------------------
+// requestAnimationFrame
+
+JSValueRef EJApp::requestAnimationFrame(JSContextRef ctxp, size_t argc, const JSValueRef argv[])
+{
+	if ( argc != 1 || !JSValueIsObject(ctxp, argv[0])) {
+		return NULL;
+	}
+
+	jsAnimationFrameCallback = JSValueToObject(ctxp, argv[0], NULL);
+	return NULL;
+}
+
 void EJApp::setCurrentRenderingContext(EJCanvasContext * renderingContext)
 {
 	if( renderingContext != currentRenderingContext ) {
@@ -489,4 +511,4 @@ void EJApp::finalize()
 		ejectaInstance->release();
 		ejectaInstance = NULL;
 	}
-}
+}

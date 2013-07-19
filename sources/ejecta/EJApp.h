@@ -55,6 +55,7 @@ class EJApp : public NSObject {
 
 	char* mainBundle;
 
+	JSObjectRef jsAnimationFrameCallback;
 	
 public:
 
@@ -81,6 +82,7 @@ public:
 	NSString * pathForResource(NSString * resourcePath);
 	JSValueRef createTimer(JSContextRef ctx, size_t argc, const JSValueRef argv[], BOOL repeat);
 	JSValueRef deleteTimer(JSContextRef ctx, size_t argc, const JSValueRef argv[]);
+	JSValueRef requestAnimationFrame(JSContextRef ctx, size_t argc, const JSValueRef argv[]);
 
 	JSClassRef getJSClassForClass(EJBindingBase* classId);
 	void hideLoadingScreen(void);

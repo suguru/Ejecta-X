@@ -72,6 +72,9 @@ EJ_BIND_FUNCTION(EJBindingEjectaCore,clearInterval, ctx, argc, argv ) {
 	return EJApp::instance()->deleteTimer(ctx ,argc,argv);
 }
 //
+EJ_BIND_FUNCTION(EJBindingEjectaCore,requestAnimationFrame, ctx, argc, argv ) {
+	return EJApp::instance()->requestAnimationFrame(ctx, argc, argv);
+}
 
 EJ_BIND_GET(EJBindingEjectaCore,devicePixelRatio, ctx ) {
 	return JSValueMakeNumber( ctx, 1);
