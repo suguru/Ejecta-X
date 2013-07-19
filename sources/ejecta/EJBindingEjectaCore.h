@@ -39,6 +39,8 @@ public:
 	EJ_BIND_FUNCTION_DEFINE(clearTimeout, ctx, argc, argv);
 	EJ_BIND_FUNCTION_DEFINE(clearInterval, ctx, argc, argv );
 
+	EJ_BIND_FUNCTION_DEFINE(requestAnimationFrame, ctx, argc, argv );
+
 	EJ_BIND_GET_DEFINE(devicePixelRatio, ctx);
 	EJ_BIND_GET_DEFINE(screenWidth, ctx);
 	EJ_BIND_GET_DEFINE(screenHeight, ctx);
